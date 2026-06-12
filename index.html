@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anuj Sharma — Hybrid Infrastructure Lead</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy:    #0B1D3A;
+    --blue:    #1A4A8A;
+    --sky:     #2E7FD9;
+    --slate:   #4A6F9A;
+    --silver:  #E8EFF7;
+    --white:   #FFFFFF;
+    --text:    #1C2B3A;
+    --muted:   #5A7390;
+    --border:  #D0DCE8;
+    --accent:  #00B4D8;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--white);
+    color: var(--text);
+    line-height: 1.6;
+    font-size: 15px;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(11,29,58,0.97);
+    backdrop-filter: blur(8px);
+    padding: 0 40px;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 56px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .nav-brand {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600; font-size: 15px;
+    color: var(--white); letter-spacing: 0.02em;
+  }
+  .nav-links { display: flex; gap: 28px; list-style: none; }
+  .nav-links a {
+    color: rgba(255,255,255,0.65);
+    text-decoration: none; font-size: 13px;
+    letter-spacing: 0.04em; text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--navy);
+    padding: 80px 40px 72px;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; top: -60px; right: -80px;
+    width: 480px; height: 480px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(46,127,217,0.14) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-inner { max-width: 900px; margin: 0 auto; position: relative; }
+
+  .hero-tag {
+    display: inline-block;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--accent);
+    border: 1px solid rgba(0,180,216,0.35);
+    padding: 4px 12px; border-radius: 20px;
+    margin-bottom: 22px;
+  }
+  .hero h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(36px, 5vw, 58px);
+    font-weight: 700; color: var(--white);
+    line-height: 1.1; letter-spacing: -0.02em;
+    margin-bottom: 10px;
+  }
+  .hero-title {
+    font-size: 17px; color: rgba(255,255,255,0.55);
+    font-weight: 400; margin-bottom: 24px;
+    letter-spacing: 0.01em;
+  }
+  .hero-summary {
+    font-size: 16px; color: rgba(255,255,255,0.8);
+    max-width: 680px; line-height: 1.75;
+    margin-bottom: 36px;
+  }
+
+  .hero-stats {
+    display: flex; gap: 40px; flex-wrap: wrap;
+    margin-bottom: 36px;
+  }
+  .stat { border-left: 2px solid var(--accent); padding-left: 14px; }
+  .stat-num {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 30px; font-weight: 700; color: var(--white);
+    line-height: 1;
+  }
+  .stat-label { font-size: 12px; color: rgba(255,255,255,0.5); margin-top: 3px; }
+
+  .hero-contacts { display: flex; gap: 16px; flex-wrap: wrap; }
+  .contact-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 10px 20px; border-radius: 6px;
+    font-size: 13px; font-weight: 500; text-decoration: none;
+    transition: all 0.2s;
+  }
+  .contact-btn.primary {
+    background: var(--sky); color: var(--white);
+  }
+  .contact-btn.primary:hover { background: #1a6fc4; }
+  .contact-btn.secondary {
+    background: rgba(255,255,255,0.07);
+    color: rgba(255,255,255,0.8);
+    border: 1px solid rgba(255,255,255,0.15);
+  }
+  .contact-btn.secondary:hover { background: rgba(255,255,255,0.12); }
+
+  /* ── LAYOUT ── */
+  .page-wrap { max-width: 960px; margin: 0 auto; padding: 0 32px; }
+
+  section { padding: 64px 0; border-bottom: 1px solid var(--border); }
+  section:last-child { border-bottom: none; }
+
+  .section-label {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .section-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 26px; font-weight: 700; color: var(--navy);
+    margin-bottom: 36px;
+  }
+
+  /* ── CERTIFICATIONS ── */
+  .cert-row { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 8px; }
+  .cert-badge {
+    background: var(--silver);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 20px;
+    display: flex; align-items: center; gap: 12px;
+    flex: 1; min-width: 240px;
+  }
+  .cert-badge.inprogress {
+    border-style: dashed;
+    opacity: 0.75;
+  }
+  .cert-icon {
+    width: 36px; height: 36px;
+    background: var(--blue);
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .cert-icon svg { width: 18px; height: 18px; fill: white; }
+  .cert-name { font-size: 13px; font-weight: 600; color: var(--navy); line-height: 1.3; }
+  .cert-status { font-size: 11px; color: var(--muted); margin-top: 2px; }
+  .cert-status.active { color: #1a9e5c; }
+  .cert-status.wip { color: #d97706; }
+
+  /* ── SKILLS ── */
+  .skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .skill-group {
+    background: var(--silver);
+    border-radius: 10px; padding: 20px 22px;
+    border: 1px solid var(--border);
+  }
+  .skill-group-name {
+    font-size: 12px; font-weight: 700; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--slate);
+    margin-bottom: 12px;
+  }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 7px; }
+  .tag {
+    background: var(--white);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-size: 12px; padding: 4px 10px;
+    border-radius: 20px;
+  }
+  .tag.highlight {
+    background: var(--navy);
+    color: white; border-color: var(--navy);
+    font-weight: 500;
+  }
+
+  /* ── EXPERIENCE ── */
+  .timeline { position: relative; }
+  .timeline::before {
+    content: '';
+    position: absolute; left: 7px; top: 6px; bottom: 0;
+    width: 2px; background: var(--border);
+  }
+
+  .job { position: relative; padding-left: 34px; margin-bottom: 52px; }
+  .job:last-child { margin-bottom: 0; }
+
+  .job-dot {
+    position: absolute; left: 0; top: 6px;
+    width: 16px; height: 16px; border-radius: 50%;
+    background: var(--white); border: 2px solid var(--sky);
+    z-index: 1;
+  }
+  .job-dot.current { background: var(--sky); }
+
+  .job-header { margin-bottom: 4px; }
+  .job-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 18px; font-weight: 700; color: var(--navy);
+  }
+  .job-company {
+    font-size: 14px; font-weight: 500; color: var(--sky);
+    margin-bottom: 2px;
+  }
+  .job-period {
+    font-size: 12px; color: var(--muted);
+    margin-bottom: 10px;
+  }
+  .job-context {
+    font-size: 13px; color: var(--muted);
+    font-style: italic; margin-bottom: 14px;
+    padding: 10px 14px;
+    background: var(--silver); border-radius: 6px;
+    border-left: 3px solid var(--accent);
+  }
+  .job-achievements { list-style: none; }
+  .job-achievements li {
+    font-size: 14px; color: var(--text);
+    padding: 6px 0 6px 18px; position: relative;
+    line-height: 1.6;
+  }
+  .job-achievements li::before {
+    content: '›';
+    position: absolute; left: 0;
+    color: var(--sky); font-size: 16px; font-weight: 600;
+    top: 5px;
+  }
+
+  .impact-highlight {
+    background: linear-gradient(90deg, rgba(0,180,216,0.08), transparent);
+    border-left: 3px solid var(--accent);
+    padding: 10px 16px; border-radius: 0 6px 6px 0;
+    margin: 12px 0;
+    font-size: 14px; font-weight: 500; color: var(--navy);
+  }
+
+  /* ── EDUCATION ── */
+  .edu-card {
+    background: var(--silver);
+    border: 1px solid var(--border);
+    border-radius: 10px; padding: 22px 24px;
+    display: flex; align-items: center; gap: 18px;
+  }
+  .edu-icon {
+    width: 44px; height: 44px;
+    background: var(--blue); border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .edu-icon svg { width: 22px; height: 22px; fill: white; }
+  .edu-degree { font-size: 16px; font-weight: 600; color: var(--navy); }
+  .edu-school { font-size: 13px; color: var(--muted); margin-top: 2px; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--navy);
+    color: rgba(255,255,255,0.45);
+    text-align: center;
+    padding: 32px;
+    font-size: 13px;
+  }
+  footer a { color: var(--accent); text-decoration: none; }
+
+  /* ── PRINT / SHARE ── */
+  .print-btn {
+    position: fixed; bottom: 28px; right: 28px;
+    background: var(--navy); color: white;
+    border: none; border-radius: 8px;
+    padding: 12px 22px; font-size: 13px; font-weight: 500;
+    cursor: pointer; box-shadow: 0 4px 16px rgba(11,29,58,0.3);
+    font-family: 'Inter', sans-serif;
+    transition: all 0.2s; z-index: 50;
+  }
+  .print-btn:hover { background: var(--sky); transform: translateY(-1px); }
+
+  @media (max-width: 680px) {
+    nav { padding: 0 20px; }
+    .nav-links { display: none; }
+    .hero { padding: 52px 20px 48px; }
+    .hero-stats { gap: 24px; }
+    .page-wrap { padding: 0 20px; }
+    .skills-grid { grid-template-columns: 1fr; }
+    .print-btn { bottom: 16px; right: 16px; }
+  }
+
+  @media print {
+    nav, .print-btn { display: none; }
+    .hero { padding: 40px 32px; }
+    section { padding: 36px 0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <span class="nav-brand">Anuj Sharma</span>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#certifications">Certs</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#education">Education</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero" id="about">
+  <div class="hero-inner">
+    <div class="hero-tag">Open to Opportunities</div>
+    <h1>Anuj Sharma</h1>
+    <div class="hero-title">Senior Systems Engineer (L3) · Hybrid Infrastructure Lead · AZ-104 Certified</div>
+    <p class="hero-summary">
+      Results-oriented infrastructure specialist with 15+ years designing, migrating, and operating VMware and Windows Server environments across on-premises and Azure hybrid cloud. Led 1,000+ VM migrations to Azure/GCVE with zero unplanned downtime — delivering measurable cost savings and performance improvements for enterprise and managed-services clients.
+    </p>
+
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-num">15+</div>
+        <div class="stat-label">Years Experience</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">1,000+</div>
+        <div class="stat-label">VMs Migrated</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">$150K+</div>
+        <div class="stat-label">Annual Savings Delivered</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">60%</div>
+        <div class="stat-label">On-Prem Footprint Reduction</div>
+      </div>
+    </div>
+
+    <div class="hero-contacts">
+      <a href="mailto:anujsharma_itpro@yahoo.co.in" class="contact-btn primary">
+        ✉ anujsharma_itpro@yahoo.co.in
+      </a>
+      <a href="tel:+919873410647" class="contact-btn secondary">
+        📞 +91-9873410647
+      </a>
+      <a href="https://www.linkedin.com/in/anujjsharma85" target="_blank" class="contact-btn secondary">
+        🔗 LinkedIn Profile
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="page-wrap">
+
+  <!-- CERTIFICATIONS -->
+  <section id="certifications">
+    <div class="section-label">Credentials</div>
+    <div class="section-title">Certifications</div>
+    <div class="cert-row">
+      <div class="cert-badge">
+        <div class="cert-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        </div>
+        <div>
+          <div class="cert-name">Microsoft Certified: Azure Administrator Associate</div>
+          <div class="cert-status active">✓ AZ-104 · Active</div>
+        </div>
+      </div>
+      <div class="cert-badge">
+        <div class="cert-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 0-16 8 8 0 0 1 0 16zm-1-9h2v5h-2zm0-4h2v2h-2z"/></svg>
+        </div>
+        <div>
+          <div class="cert-name">Microsoft Certified Professional (MCP)</div>
+          <div class="cert-status active">✓ Certified</div>
+        </div>
+      </div>
+      <div class="cert-badge inprogress">
+        <div class="cert-icon" style="background:#d97706;">
+          <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        </div>
+        <div>
+          <div class="cert-name">Azure Solutions Architect Expert</div>
+          <div class="cert-status wip">⏳ AZ-305 · In Progress</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="section-label">Core Competencies</div>
+    <div class="section-title">Technical Skills</div>
+    <div class="skills-grid">
+
+      <div class="skill-group">
+        <div class="skill-group-name">Cloud Platforms</div>
+        <div class="skill-tags">
+          <span class="tag highlight">Microsoft Azure</span>
+          <span class="tag highlight">GCVE</span>
+          <span class="tag">Azure VM (IaaS/PaaS)</span>
+          <span class="tag">Entra ID / AAD</span>
+          <span class="tag">Azure VNets & NSGs</span>
+          <span class="tag">Azure Monitor</span>
+          <span class="tag">Azure Backup</span>
+          <span class="tag">FinOps / Cost Mgmt</span>
+          <span class="tag">Hybrid Cloud Arch.</span>
+          <span class="tag">Lift-and-Shift Migration</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <div class="skill-group-name">Virtualisation</div>
+        <div class="skill-tags">
+          <span class="tag highlight">VMware vSphere 6.x/7.x</span>
+          <span class="tag highlight">ESXi</span>
+          <span class="tag">vCenter</span>
+          <span class="tag">HA / DRS / FT</span>
+          <span class="tag">vMotion</span>
+          <span class="tag">Hyper-V</span>
+          <span class="tag">River Meadow</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <div class="skill-group-name">Windows Infrastructure</div>
+        <div class="skill-tags">
+          <span class="tag highlight">Windows Server 2012–2022</span>
+          <span class="tag highlight">Active Directory</span>
+          <span class="tag">Group Policy (GPO)</span>
+          <span class="tag">DNS / DHCP</span>
+          <span class="tag">SSL/TLS Lifecycle</span>
+          <span class="tag">WDS</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <div class="skill-group-name">Automation & Scripting</div>
+        <div class="skill-tags">
+          <span class="tag highlight">PowerShell</span>
+          <span class="tag">ARM Templates</span>
+          <span class="tag">AD Automation</span>
+          <span class="tag">Azure Resource Reporting</span>
+          <span class="tag">Compliance Auditing</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <div class="skill-group-name">Security & Compliance</div>
+        <div class="skill-tags">
+          <span class="tag">OS Hardening</span>
+          <span class="tag">Patch Management</span>
+          <span class="tag">RBAC / Azure Policy</span>
+          <span class="tag">Security Event Logging</span>
+          <span class="tag">Vulnerability Remediation</span>
+          <span class="tag">Access Controls</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <div class="skill-group-name">ITSM & DR</div>
+        <div class="skill-tags">
+          <span class="tag highlight">ITIL</span>
+          <span class="tag">ServiceNow</span>
+          <span class="tag">JIRA</span>
+          <span class="tag">Azure Backup & DR</span>
+          <span class="tag">BCP / Failover Testing</span>
+          <span class="tag">Confluence</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="section-label">Work History</div>
+    <div class="section-title">Professional Experience</div>
+
+    <div class="timeline">
+
+      <!-- JOB 1 -->
+      <div class="job">
+        <div class="job-dot current"></div>
+        <div class="job-header">
+          <div class="job-title">Senior Systems Engineer — L3</div>
+          <div class="job-company">Ensono Technologies LLP</div>
+          <div class="job-period">March 2023 – Present</div>
+        </div>
+        <div class="job-context">
+          Leading hybrid infrastructure operations across on-premises VMware and Azure/GCVE cloud environments for a managed-services client base.
+        </div>
+
+        <div class="impact-highlight">
+          🏆 Led 1,000+ VM migrations to Azure/GCVE — zero unplanned downtime, ~$150,000+ annual savings, 60% reduction in on-premises server footprint.
+        </div>
+
+        <ul class="job-achievements">
+          <li>Primary technical point of contact for cloud migration initiatives, coordinating with application, network, and security teams through all production cutovers.</li>
+          <li>Implemented Azure governance frameworks — Azure Policy across subscriptions, RBAC, and Azure Monitor alerting for consistent security compliance.</li>
+          <li>Designed and provisioned scalable Azure Virtual Machines across multiple subscriptions, overseeing VM sizing, availability sets, managed disks, and full lifecycle management.</li>
+          <li>Managed Azure Active Directory (Entra ID) — user accounts, groups, and role assignments across hybrid environments.</li>
+          <li>Applied FinOps practices via Azure Cost Management and Azure Advisor — right-sizing VMs, decommissioning idle resources, and capacity planning to reduce unnecessary cloud spend.</li>
+          <li>Configured Azure networking (VNets, subnets, NSGs, peering) to support secure hybrid cloud connectivity.</li>
+          <li>Operated Azure Monitor and Log Analytics — built custom alert rules, dashboards, and diagnostic settings for proactive workload visibility.</li>
+          <li>Delivered L3 support for critical hybrid Windows Server incidents, reducing recurring issues by 20% through structured root cause analysis.</li>
+          <li>Improved MTTR by 25% through ITIL-based incident, problem, and change management.</li>
+          <li>Operated VMware workloads in GCVE — provisioning, snapshot management, resource optimisation, and cluster health monitoring.</li>
+          <li>Led monthly DR tests using Azure Backup and native snapshot management, ensuring operational readiness for mission-critical systems.</li>
+		  <li>Managing Active Directory, DNS, and DHCP services in hybrid environments — maintaining user accounts, groups, GPOs, DNS zones, and DHCP scopes to ensure directory integrity and network availability.</li>
+		  <li>Enforcing security baselines through Group Policy Objects (GPOs), auditing policies, and access controls — tracking changes, detecting security incidents, and maintaining compliance with regulatory requirements.</li>
+		  <li>Executing the implementation and proficient management of virtualized environments, leveraging VMware technologies including vCenter, Update Manager, High Availability (HA), Fault Tolerance (FT), and vMotion.</li>
+        </ul>
+      </div>
+
+      <!-- JOB 2 -->
+      <div class="job">
+        <div class="job-dot"></div>
+        <div class="job-header">
+          <div class="job-title">Senior Lead System Administrator</div>
+          <div class="job-company">FIS Solutions (India) Pvt. Ltd.</div>
+          <div class="job-period">May 2020 – February 2023</div>
+        </div>
+        <div class="job-context">
+          Led infrastructure operations across multi-environment (Test, PPE, Production) landscapes for a financial services organisation — owning Active Directory, virtualisation, and service continuity for financial-critical systems.
+        </div>
+
+        <div class="impact-highlight">
+          🏆 Achieved 98% on-time ticket closure rate. Managed AD for 4,000+ users across three environments with zero rollback incidents on production changes.
+        </div>
+
+        <ul class="job-achievements">
+          <li>Provided L3 technical support for Windows Server 2012/2016/2019 environments, resolving escalated incidents within SLA targets.</li>
+          <li>Architected and maintained Active Directory for 4,000+ users across Test, PPE, and Production environments, enforcing GPO-based configuration baselines.</li>
+          <li>Led VMware vCenter/ESXi virtualisation management — configuring, upgrading, and optimising VMs for performance and workload stability.</li>
+          <li>Executed ITIL change management processes with zero rollback incidents across all production changes.</li>
+          <li>Assisted in DR failover testing, validating system recovery procedures and maintaining BCP readiness.</li>
+          <li>Directed IT workflows using JIRA, Confluence, Rally, and ServiceNow — improving task tracking and delivery timelines.</li>
+        </ul>
+      </div>
+
+      <!-- JOB 3 -->
+      <div class="job">
+        <div class="job-dot"></div>
+        <div class="job-header">
+          <div class="job-title">Manager – IT Infrastructure</div>
+          <div class="job-company">iEnergizer IT Services Pvt. Ltd.</div>
+          <div class="job-period">October 2013 – April 2020</div>
+        </div>
+        <div class="job-context">
+          Owned end-to-end IT infrastructure for a multi-site BPO — VMware deployment, Active Directory management, network services, and team leadership.
+        </div>
+
+        <div class="impact-highlight">
+          🏆 Reduced hardware dependency by 35% via VMware virtualisation. Cut OS provisioning time by 60% with WDS. Reduced hardware costs by 40% with Hyper-V for domain controllers. Mentored 15+ IT staff.
+        </div>
+
+        <ul class="job-achievements">
+          <li>Designed, implemented, and managed VMware virtualised environments, improving efficiency and reducing hardware dependency by 35%.</li>
+          <li>Managed Active Directory for 3,000+ users, maintaining domain security and compliance with internal access policies.</li>
+          <li>Managed vCenter with ESXi 5.x/6.x and 300+ VMs — monitoring cluster CPU, RAM, and datastore utilisation proactively.</li>
+          <li>Implemented Windows Deployment Services (WDS), reducing OS/application installation time by 60%.</li>
+          <li>Reduced repeat OS incidents by 30% through structured root cause analysis and corrective action plans.</li>
+          <li>Mentored and trained 15+ IT staff, enhancing team productivity and technical proficiency.</li>
+        </ul>
+      </div>
+
+      <!-- JOB 4 -->
+      <div class="job">
+        <div class="job-dot"></div>
+        <div class="job-header">
+          <div class="job-title">Senior System Executive</div>
+          <div class="job-company">Magus Customer Dialog Pvt. Ltd.</div>
+          <div class="job-period">August 2006 – October 2013</div>
+        </div>
+        <div class="job-context">
+          Managed end-to-end IT infrastructure for multi-location enterprise operations over 7 years — building deep foundational expertise in Windows Server, Active Directory, DNS, and network services.
+        </div>
+        <ul class="job-achievements">
+          <li>Managed Windows Server, Active Directory, DNS, and network services across multiple enterprise locations for 7 years, establishing the technical foundation for senior hybrid cloud work.</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education">
+    <div class="section-label">Academic Background</div>
+    <div class="section-title">Education</div>
+    <div class="edu-card">
+      <div class="edu-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zM5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/></svg>
+      </div>
+      <div>
+        <div class="edu-degree">B.Sc. in Information Technology</div>
+        <div class="edu-school">Sikkim Manipal University</div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>Anuj Sharma · Hybrid Infrastructure Lead · <a href="mailto:anujsharma_itpro@yahoo.co.in">anujsharma_itpro@yahoo.co.in</a> · <a href="https://www.linkedin.com/in/anujjsharma85" target="_blank">LinkedIn</a></p>
+  <p style="margin-top:8px;">Portfolio generated from resume · Available for hybrid infrastructure, cloud migration, and enterprise IT leadership roles</p>
+</footer>
+
+<!-- PRINT BUTTON -->
+<button class="print-btn" onclick="window.print()">🖨 Print / Save PDF</button>
+
+</body>
+</html>
